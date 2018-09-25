@@ -20,6 +20,14 @@ int main() {
 		QRcode.display(image, decodedObjects);
 		cv::Mat image = QRcode.GetImage();
 
+		cv::Mat RectImage;
+		if (QRcode.GetQRPosition().x != NULL) {
+			cv::Rect rect;
+			if (QRcode.GetRect(rect)) {
+				RectImage = image(rect);
+				cv::imshow("RECT Image", RectImage);
+			}		
+		}
 		int key = cvWaitKey(1);
 		if (key == VK_ESCAPE) break;
 

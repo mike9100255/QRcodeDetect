@@ -20,6 +20,7 @@ public:
 	std::string GetQRNumber();
 	cv::Point GetQRPosition();
 	cv::Mat GetImage();
+	bool GetRect(cv::Rect&);
 private:
 	cv::Mat image;
 	std::string QRnum;

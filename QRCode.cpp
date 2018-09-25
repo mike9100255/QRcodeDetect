@@ -99,3 +99,25 @@ cv::Point QRCode::GetQRPosition()
 cv::Mat QRCode::GetImage(){
 	return image;
 }
+
+bool QRCode::GetRect(cv::Rect& rect)
+{
+	int XOffset = 150;
+	int YOffset = 60;
+	cv::Moments moments = cv::moments(QRlocation);
+
+	if (moments.m10 != 0) {
+		int QRPositionX = moments.m10 / moments.m00 - XOffset;
+		int QRPositionY = moments.m01 / moments.m00 - YOffset;
+		int width = QRPositionX + 200;
+		int height = QRPositionY + 120;
+		
+		if (QRPositionX < 0 || QRPositionY < 0 || width > image.cols || height > image.rows) {
+			return false;
+		}
+		rect = cv::Rect(QRPositionX, QRPositionY, 200, 120);
+		return true;
+	}
+
+	return false;
+}
